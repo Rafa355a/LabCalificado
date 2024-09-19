@@ -1,0 +1,18 @@
+<!-- src/views/favoritos.hbs -->
+<h2>Favoritos</h2>
+{{#each products}}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <form action="/toggle-favorite" method="POST">
+                <input type="hidden" name="productId" value="{{this.id}}">
+                {{#if (isFavorite this.id ../favorites)}}
+                    <button type="submit" class="btn btn-danger">Quitar de Favoritos</button>
+                {{else}}
+                    <button type="submit" class="btn btn-primary">Agregar a Favoritos</button>
+                {{/if}}
+            </form>
+        </div>
+    </div>
+{{/each}}

@@ -1,0 +1,27 @@
+<!-- src/views/resenas.hbs -->
+<h2>Reseñas</h2>
+<form action="/submit-review" method="POST">
+    <div class="mb-3">
+        <label for="reviewerName" class="form-label">Nombre del Cliente</label>
+        <input type="text" class="form-control" id="reviewerName" name="reviewerName" required>
+    </div>
+    <div class="mb-3">
+        <label for="productName" class="form-label">Nombre del Producto</label>
+        <input type="text" class="form-control" id="productName" name="productName" required>
+    </div>
+    <div class="mb-3">
+        <label for="rating" class="form-label">Puntuación</label>
+        <select class="form-select" id="rating" name="rating" required>
+            <option value="1">1 Estrella</option>
+            <option value="2">2 Estrellas</option>
+            <option value="3">3 Estrellas</option>
+            <option value="4">4 Estrellas</option>
+            <option value="5">5 Estrellas</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="reviewText" class="form-label">Texto de la Reseña</label>
+        <textarea class="form-control" id="reviewText" name="reviewText" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+</form>

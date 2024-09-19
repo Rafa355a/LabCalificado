@@ -1,0 +1,37 @@
+<!-- src/views/home.hbs -->
+<h1>Bienvenido a Sidekicks</h1>
+<p>Elige una opción del menú superior.</p>
+
+<h2>Reseñas Recientes</h2>
+{{#if reviews.length}}
+    {{#each reviews}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{this.productName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">By: {{this.reviewerName}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Rating: {{this.rating}} star(s)</h6>
+                <p class="card-text">{{this.reviewText}}</p>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <p>No hay recientes. Publica una para ser el primero!</p>
+{{/if}}
+
+<h2>Tus Favoritos</h2>
+{{#if favorites.length}}
+    {{#each favorites}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <form action="/toggle-favorite" method="POST">
+                    <input type="hidden" name="productId" value="{{this.id}}">
+                    <button type="submit" class="btn btn-danger">Quitar de Favoritos</button>
+                </form>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <p>No tienes Favoritos, busca uno y elige el que mas te guste!</p>
+{{/if}}
