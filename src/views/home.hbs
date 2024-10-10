@@ -1,37 +1,91 @@
 <!-- src/views/home.hbs -->
-<h1>Bienvenido a Sidekicks</h1>
-<p>Elige una opción del menú superior.</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Sidekicks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        h1, h2 {
+            color: #343a40;
+        }
+        .btn-warning {
+            transition: background-color 0.3s ease;
+        }
+        .btn-warning:hover {
+            background-color: #ffca2c;
+        }
+        .btn-danger {
+            transition: background-color 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Bienvenido a Sidekicks</h1>
+        <p class="text-center">Elige una opción del menú superior.</p>
 
-<h2>Reseñas Recientes</h2>
-{{#if reviews.length}}
-    {{#each reviews}}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{this.productName}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">By: {{this.reviewerName}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Rating: {{this.rating}} star(s)</h6>
-                <p class="card-text">{{this.reviewText}}</p>
+        <h2 class="mt-4">Reseñas Recientes</h2>
+        {{#if reviews.length}}
+            <div class="list-group">
+                {{#each reviews}}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.product_name}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">By: {{this.reviewer_name}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Rating: {{this.rating}} star(s)</h6>
+                            <p class="card-text">{{this.review_text}}</p>
+                            <!-- Botón para editar la reseña -->
+                            <form action="/resenas/edit/{{this.id}}" method="GET" style="display: inline;">
+                                <button type="submit" class="btn btn-warning">Editar</button>
+                            </form>
+                            <!-- Botón para eliminar la reseña -->
+                            <form action="/resenas/delete/{{this.id}}" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
-        </div>
-    {{/each}}
-{{else}}
-    <p>No hay recientes. Publica una para ser el primero!</p>
-{{/if}}
+        {{else}}
+            <p class="text-center">No hay recientes. Publica una para ser el primero!</p>
+        {{/if}}
 
-<h2>Tus Favoritos</h2>
-{{#if favorites.length}}
-    {{#each favorites}}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{this.name}}</h5>
-                <p class="card-text">{{this.description}}</p>
-                <form action="/toggle-favorite" method="POST">
-                    <input type="hidden" name="productId" value="{{this.id}}">
-                    <button type="submit" class="btn btn-danger">Quitar de Favoritos</button>
-                </form>
-            </div>
+        <h2 class="mt-4">Productos</h2>
+        <div class="row">
+            {{#each products}}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.name}}</h5>
+                            <p class="card-text">{{this.description}}</p>
+                            <form action="/favoritos/toggle-favorite" method="POST">
+                                <input type="hidden" name="productId" value="{{this.id}}">
+                                <button type="submit" class="btn btn-primary">Agregar a Favoritos</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
         </div>
-    {{/each}}
-{{else}}
-    <p>No tienes Favoritos, busca uno y elige el que mas te guste!</p>
-{{/if}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
